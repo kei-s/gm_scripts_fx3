@@ -533,7 +533,7 @@ var runMinibufferBookmarkCommand = function(){
 	}
 
 	window.Minibuffer.addShortcutkey({
-	  key: 'b',
+	  key: '',
 	  description: 'Bookmark',
 	  command: function(){
 		  var target_cmd = getTargetCommand();

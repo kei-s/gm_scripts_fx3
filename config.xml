@@ -1,6 +1,8 @@
 <UserScriptConfig>
 	<Script filename="autopagerize.user.js" name="AutoPagerize" namespace="http://swdyh.yu.to/" description="loading next page and inserting into current page." enabled="true" basedir="autopagerize">
-		<Include>*</Include>
+		<Include>http://*</Include>
+		<Include>https://*</Include>
+		<Exclude>https://mail.google.com/*</Exclude>
 	</Script>
 	<Script filename="minibuffer.user.js" name="Minibuffer" namespace="http://white.s151.xrea.com/" description="Minibuffer" enabled="true" basedir="minibuffer">
 		<Include>*</Include>
@@ -18,10 +20,6 @@
 		<Include>http://www.google.com/reader/view/*</Include>
 		<Include>https://www.google.com/reader/view/*</Include>
 	</Script>
-	<Script filename="google_reader_full_feed.user.js" name="Google Reader Full Feed" namespace="tag:mattn.jp@gmail.com,2008-02-25:/coderepos.org" description="loading full entry on Google Reader" enabled="true" basedir="google_reader_full_feed">
-		<Include>http://www.google.tld/reader/*</Include>
-		<Include>https://www.google.tld/reader/*</Include>
-	</Script>
 	<Script filename="favicon_with_google_3.user.js" name="Favicon with Google 3" namespace="http://white.s151.xrea.com/" description="A script to add favicons next to links on Google search results" enabled="true" basedir="favicon_with_google_3">
 		<Include>http://*google.*/*q=*</Include>
 		<Exclude>http://mail.google.com/*</Exclude>
@@ -29,10 +27,30 @@
 	<Script filename="sbm_count_with_google.user.js" name="SBM Count With Google" namespace="http://white.s151.xrea.com/" description="show SBM count in Google search result" enabled="true" basedir="sbm_count_with_google">
 		<Include>http://www.google.*/*q=*</Include>
 	</Script>
+	<Script filename="minibuffer_bookmark_comm.user.js" name="Minibuffer Bookmark Command" namespace="http://white.s151.xrea.com/" description="bookmark command for minibuffer" enabled="true" basedir="minibuffer_bookmark_comm">
+		<Include>*</Include>
+	</Script>
+	<Script filename="hatena_black_star.user.js" name="Hatena Black Star" namespace="http://hamachiya.com/" description="Hatena Black Star" enabled="true" basedir="hatena_black_star">
+		<Include>http://b.hatena.ne.jp/entry/*</Include>
+	</Script>
+	<Script filename="mata_nicovideo.user.js" name="mata nicovideo" namespace="http://muumoo.jp/" description="" enabled="true" basedir="mata_nicovideo">
+		<Include>http://www.nicovideo.jp/watch/*</Include>
+	</Script>
+	<Script filename="easy_im_reading_now.user.js" name="easy I'm reading now" namespace="http://d.hatena.ne.jp/Uchimata/" description="Usage: Ctrl + Shift + Enter -&gt; &quot;Browsing: ****&quot; on Twitter!" enabled="true" basedir="easy_im_reading_now">
+		<Include>*</Include>
+	</Script>
+	<Script filename="mata_niconico_diag.user.js" name="mata niconico diag" namespace="http://mirupreza.tumblr.com/" description="Usage: F2 -&gt; &quot;***: ****&quot; on Twitter!" enabled="true" basedir="mata_niconico_diag">
+		<Include>http://www.nicovideo.jp/watch/*</Include>
+	</Script>
+	<Script filename="imenu_relinker.user.js" name="ime.nu relinker" namespace="http://ccm.sherry.jp/" description="Relinks 2ch's ime.nu urls." enabled="true" basedir="imenu_relinker">
+		<Include>http://*.2ch.net/*</Include>
+		<Include>http://*.bbspink.com/*</Include>
+	</Script>
 	<Script filename="googlereaderfullfeed.user.js" name="googlereaderfullfeed" namespace="coderepos.org" description="" enabled="true" basedir="googlereaderfullfeed">
 		<Include>*</Include>
 	</Script>
-	<Script filename="minibuffer_bookmark_comm.user.js" name="Minibuffer Bookmark Command" namespace="http://white.s151.xrea.com/" description="bookmark command for minibuffer" enabled="true" basedir="minibuffer_bookmark_comm">
-		<Include>*</Include>
+	<Script filename="google_reader_full_feed.user.js" name="Google Reader Full Feed" namespace="tag:mattn.jp@gmail.com,2008-02-25:/coderepos.org" description="loading full entry on Google Reader" enabled="true" basedir="google_reader_full_feed">
+		<Include>http://www.google.tld/reader/*</Include>
+		<Include>https://www.google.tld/reader/*</Include>
 	</Script>
 </UserScriptConfig>

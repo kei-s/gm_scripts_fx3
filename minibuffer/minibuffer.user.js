@@ -7,7 +7,7 @@
 
 var VERSION = "2008.02.16";
 
-var Class = function(){return function(){this.initialize.apply(this,arguments)}}
+var Class = function(){return function(){this.initialize.apply(this,arguments)}};
 
 // string key
 var Key = new Class();
@@ -16,13 +16,13 @@ Key.prototype = {
 	  this.orig_string = arguments[0];
 	  this.key = this.orig_string.replace(/[ACMS]-/g,'');
   },
-  has: function(modifier){return this.orig_string.indexOf(modifier) != -1},
+  has: function(modifier){return this.orig_string.indexOf(modifier) > -1},
   equal: function (e, ch){
 	  return (this.key == ch &&
-			  this.has('C-') == e.ctrlKey &&
-			  (e.metaKey || e.altKey) == (this.has('A-') || this.has('M-')))
+	          this.has('C-') == e.ctrlKey &&
+	          (e.metaKey || e.altKey) == (this.has('A-') || this.has('M-')))
   }
-}
+};
 
 var ShortcutKey = new Class();
 ShortcutKey.prototype = {
@@ -61,7 +61,7 @@ ShortcutKey.prototype = {
   },
 
   initialize: function(){
-	  this.hash = {}
+	  this.hash = {};
 	  this.state_available = false;
 	  this.prevent_event = true;
 	  this.through_input_elements = false;
@@ -98,11 +98,11 @@ ShortcutKey.prototype = {
   addDescription: function(opt){
 	  var getKeyHTML = function(key, description){
 		  return $N('div',{},
-					[$N('kbd',{},key),
-					 $N('div',{},description)]);
-	  }
+		            [$N('kbd',{},key),
+		             $N('div',{},description)]);
+	  };
 	  var div = getKeyHTML(opt.key, opt.description);
-	  this.html.appendChild(div)
+	  this.html.appendChild(div);
 	  this.descriptions.push({key:opt.key, html:div});
   },
   removeCommand: function(key){
@@ -145,11 +145,11 @@ ShortcutKey.prototype = {
   },
   listener: function(aEvent){
 	  if(!this.capture &&
-		 this.through_input_elements &&
-		 aEvent.target.nodeName.toLowerCase().match(/input|textarea/)) return;
+	     this.through_input_elements &&
+	     /^(?:input|textarea)$/.test(aEvent.target.nodeName.toLowerCase())) return;
 	  var ch = (!aEvent.shiftKey && this.keyCodeStr[aEvent.keyCode]) ||
-			   (!aEvent.shiftKey && this.whichStr[aEvent.which]) ||
-			   String.fromCharCode(aEvent.which);
+	           (!aEvent.shiftKey && this.whichStr[aEvent.which]) ||
+	           String.fromCharCode(aEvent.which);
 	  var kf = this.findByEvent(aEvent, ch);
 	  var preventDefault = this.prevent_event;
 //	  log(aEvent.keyCode, aEvent.which, ch,kf, aEvent.shiftKey);
@@ -176,26 +176,26 @@ ShortcutKey.prototype = {
 	  this.html = box;
 	  this.id = box.id;
 	  var id = 'div#' + box.id;
-	  var inherit = 'background:inherit; background-image:inherit; background-color:inherit; color:inherit; text-align:inherit; font-size:inherit; font-style;inherit; font-weight:inherit; margin:inherit; opacity:inherit; text-decoration:inherit; border:0px; height:100%; padding:0; margin:inherit; font-family:inherit; vertical-align:inherit; line-height:inherit; font-stretch:inherit; font-variant:inherit; font-size-adjust:inherit; letter-spacing:inherit;';
+	  var inherit = 'background:inherit; background-image:inherit; background-color:inherit; color:inherit; text-align:inherit; font-size:inherit; font-style:inherit; font-weight:inherit; margin:inherit; opacity:inherit; text-decoration:inherit; border:0px; height:100%; padding:0; margin:inherit; font-family:inherit; vertical-align:inherit; line-height:inherit; font-stretch:inherit; font-variant:inherit; font-size-adjust:inherit; letter-spacing:inherit;';
 	  GM_addStyle([id,'{', 'right: 10px;', 'left: 10px;', 'top: 10px;', 'line-height: 100%;', 'vertical-align: baseline;', 'border: 1px dotted #444;', 'font-family: sans-serif;', 'text-decoration: none;', 'font-weight: normal;', 'font-style: normal;', 'font-size: medium;', 'font-stretch: normal;', 'font-variant: normal;', 'font-size-adjust: none;', 'letter-spacing: normal;', 'background: none;', 'text-align: left;', 'position: fixed;', 'margin: 0;', 'padding: 20px;', 'background-color: #000;', 'background-image: none;', 'color: #aaa;', '-moz-border-radius: 10px;', 'opacity:0.8;', 'z-index:1000;', '}\n',
-				   id,' div{', inherit, 'opacity:1.0;','text-align:center;','}',
-				   id,' > div{', inherit, 'margin: 0px 20px 20px 0px;', 'opacity:1.0;','text-align:center;','}',
-				   id,' kbd{', inherit, 'font-size: 120%;','font-weight: bold;', 'color: #B83E3B;', 'text-align: right;', 'width:50%;','float:left;','}\n',
-				   id,' kbd + div{', 'margin-left:50%;', 'text-align:left;','}\n',
-				   id,' kbd + div:before{', 'content:": ";' ,'}\n',
-				   id,' h1{', inherit, 'margin: 20px auto;','background-image: none;', "opacity:1.0;", 'font-weight: bold;', 'font-size: 150%;', 'color:#fff;','padding-left: 20px;', 'text-align: center;', '}\n',
-				   ].join(''));
+	               id,' div{', inherit, 'opacity:1.0;','text-align:center;','}',
+	               id,' > div{', inherit, 'margin: 0px 20px 20px 0px;', 'opacity:1.0;','text-align:center;','}',
+	               id,' kbd{', inherit, 'font-size: 120%;','font-weight: bold;', 'color: #B83E3B;', 'text-align: right;', 'width:50%;','float:left;','}\n',
+	               id,' kbd + div{', 'margin-left:50%;', 'text-align:left;','}\n',
+	               id,' kbd + div:before{', 'content:": ";' ,'}\n',
+	               id,' h1{', inherit, 'margin: 20px auto;','background-image: none;', "opacity:1.0;", 'font-weight: bold;', 'font-size: 150%;', 'color:#fff;','padding-left: 20px;', 'text-align: center;', '}\n',
+	               ].join(''));
 	  return this;
   },
   bindHelp: function(){return (this.hideHelpMessage() || this.showHelpMessage())},
   showHelpMessage: function(){document.body.appendChild(this.html)},
   hideHelpMessage: function(){
 	  var help = document.getElementById(this.id);
-	  if (!help) return false;
+	  if(!help) return false;
 	  document.body.removeChild(this.html);
 	  return true;
   },
-}
+};
 
 // to use history/alias in Minibuffer, define getter/setter like below
 // history is Array of string
@@ -204,8 +204,8 @@ ShortcutKey.prototype = {
 //   e.g.  {"foo":"bar111|bar222", "baz":"qux111|qux222"}
 //
 // obj.setHistoryGetter(function() {
-//     var res = GM_getValue('history');
-//     return typeof(res) != 'undefined' ? eval(res) : [];
+//     var res = eval(GM_getValue('history', '[]'));
+//     return res;
 // });
 // obj.setHistorySetter(function(new_history) {
 //     GM_setValue('history',uneval(new_history));
@@ -237,7 +237,7 @@ Minibuffer.prototype = {
 	  'C-r'      : 'bindSearchHistoryBackward',
 	  'C-s'      : 'bindSearchHistoryForward',
 	  // alias
-	  'C-c'      : 'bindRegisterAlias',
+	  'C-c'      : 'bindRegisterOrUnregisterAlias',
 	  'M-c'      : 'bindExpandAlias',
 	  // other
 	  'ESC'      : 'bindExit',
@@ -286,7 +286,7 @@ Minibuffer.prototype = {
 			command: function(){self.bindInputChar(ch)}
 		  });
 	  });
-	  for(key in self.KEYBIND){
+	  for(var key in self.KEYBIND){
 		  (function(a){
 			  self.shortcutkey.addCommand({key:key, command:function(){a.call(self)}});
 		  })(self[self.KEYBIND[key]]);
@@ -329,21 +329,21 @@ Minibuffer.prototype = {
 	  this.html.prompt = $N('span',{},"$");
 	  this.html.input = $N('input',{id:INPUT_ID});
 	  this.html.container = $N('div',{id:CONTAINER_ID, style:"background-color:#000;"},
-							   [this.html.completion,
-								this.html.message,
-								this.html.prompt,
-								this.html.input]);
+	                           [this.html.completion,
+	                            this.html.message,
+	                            this.html.prompt,
+	                            this.html.input]);
 
-	  var inherit = 'background:inherit; background-image:inherit; background-color:inherit; color:inherit; text-align:inherit; font-size:inherit; font-style;inherit; font-weight:inherit; magrin:inherit; opacity:inherit; text-decoration:inherit; border:0px; height:100%; padding:0; margin:inherit; font-family:inherit; vertical-align:inherit; line-height:inherit; font-stretch:inherit; font-variant:inherit; font-size-adjust:inherit; letter-spacing:inherit;';
+	  var inherit = 'background:inherit; background-image:inherit; background-color:inherit; color:inherit; text-align:inherit; font-size:inherit; font-style:inherit; font-weight:inherit; margin:inherit; opacity:inherit; text-decoration:inherit; border:0px; height:100%; padding:0; margin:inherit; font-family:inherit; vertical-align:inherit; line-height:inherit; font-stretch:inherit; font-variant:inherit; font-size-adjust:inherit; letter-spacing:inherit;';
 	  GM_addStyle(['#', CONTAINER_ID,'{', 'right: 0px;', 'left: 0px;', 'bottom: 0px;', 'line-height: 100%;', 'vertical-align: baseline;', 'border: 1px dotted #444;', 'font-family: sans-serif;', 'text-decoration: none;', 'font-weight: normal;', 'font-style: normal;', 'font-size: medium;', 'font-stretch: normal;', 'font-variant: normal;', 'font-size-adjust: none;', 'letter-spacing: normal;', 'background: none;', 'text-align: left;', 'position: fixed;', 'margin: 0;', 'padding: 20px;', 'background-image: none;', 'color: #aaa;', '-moz-border-radius: 10px 10px 0px 0px;', 'opacity:0.8;', 'z-index:999;', '}\n',
-				   '#', CONTAINER_ID, ' > span',INPUT_ID, '{', 'color: #CB6161;','display:inline;','}',
-				   '#', CONTAINER_ID, ' > span {', inherit, 'color: #ccc;', 'display:inline;','margin-right: 5px;','}\n',
-				   '#', INPUT_ID, '{', inherit, 'width:90%;','}',
-				   '#', COMPLETION_ID, '{', inherit, 'margin-bottom: 20px;','border-bottom: 1px dotted #444;' ,'}\n',
-				   '#', COMPLETION_ID, ' > span {', inherit, 'color: #ccc;', 'margin: 10px;','display:block;','}\n',
-				   '#', COMPLETION_ID, ' > li {', inherit, 'color: #ccc;', 'padding: 2px;','margin-bottom:10px;','margin-left: 10px;','}\n',
-				   '#', COMPLETION_ID, ' > li.gm_minibuffer_selected{', inherit, 'color: #CB6161;', 'padding: 2px;','margin-bottom:10px;','margin-left: 10px;','}\n',
-				   ].join(''));
+	               '#', CONTAINER_ID, ' > span',INPUT_ID, '{', 'color: #CB6161;','display:inline;','}',
+	               '#', CONTAINER_ID, ' > span {', inherit, 'color: #ccc;', 'display:inline;','margin-right: 5px;','}\n',
+	               '#', INPUT_ID, '{', inherit, 'width:90%;','}',
+	               '#', COMPLETION_ID, '{', inherit, 'margin-bottom: 20px;','border-bottom: 1px dotted #444;' ,'}\n',
+	               '#', COMPLETION_ID, ' > span {', inherit, 'color: #ccc;', 'margin: 10px;','display:block;','}\n',
+	               '#', COMPLETION_ID, ' > li {', inherit, 'color: #ccc;', 'padding: 2px;','margin-bottom:10px;','margin-left: 10px;','}\n',
+	               '#', COMPLETION_ID, ' > li.gm_minibuffer_selected{', inherit, 'color: #CB6161;', 'padding: 2px;','margin-bottom:10px;','margin-left: 10px;','}\n',
+	               ].join(''));
   },
 
   updateComplationList: function(scroll){
@@ -356,7 +356,7 @@ Minibuffer.prototype = {
 	  var test = function(str, l){
 		  var regexp = new RegExp(str, str.toLowerCase() == str ? 'i' : '');
 		  return l.filter(function(el){return el.match(regexp)});
-	  }
+	  };
 	  // all candidates
 	  if(input_str == '') new_lst = old_lst;
 	  // prefix match
@@ -383,7 +383,7 @@ Minibuffer.prototype = {
   },
   scrollPageNext: function(stop){ // stop at the bottom
 	  var c = this.html.completion;
-	  var lst = this.last_completed_string.split('\n');
+	  var lst = this.last_completed_string.split(/\r?\n|\r/);
 	  if(this.MAX_CANDIDATES < lst.length){
 		  var txt = c.lastChild.innerHTML;
 		  var pos = lst.position(txt) + 1;
@@ -402,7 +402,7 @@ Minibuffer.prototype = {
   },
   scrollPagePrev: function(stop){ // stop at the top
 	  var c = this.html.completion;
-	  var lst = this.last_completed_string.split('\n');
+	  var lst = this.last_completed_string.split(/\r?\n|\r/);
 	  if(this.MAX_CANDIDATES < lst.length){
 		  var txt = c.firstChild.innerHTML;
 		  var pos = lst.position(txt) - this.MAX_CANDIDATES;
@@ -414,19 +414,19 @@ Minibuffer.prototype = {
 		  c.innerHTML = '';
 		  next_candidates.forEach(function(e){
 			  c.appendChild($N('li',{}, e));
-		  })
+		  });
 		  this.html.message.innerHTML = 'Page '+ (Math.floor(pos / this.MAX_CANDIDATES) +1) + '/' + (Math.floor(lst.length / this.MAX_CANDIDATES)+1);
 	  }
 	  return true;
   },
   getCompletedString: function(){
-	  var lst = this.last_completed_string.split('\n');
+	  var lst = this.last_completed_string.split(/\r?\n|\r/);
 	  var fn = function(a,b){
 		  if(a.length==0) return a;
 		  var tmp=0, i=1, len=a.length;
 		  while(tmp = b.indexOf(a.slice(0,i)) == 0) if(len == i++) break;
 		  return a.slice(0,--i);
-	  }
+	  };
 	  // ["ab1", "ab2", "ab3"] => "ab"
 	  return lst.reduce(fn);
   },
@@ -450,7 +450,7 @@ Minibuffer.prototype = {
 	  this.initHistoryVariable();// history
 
 	  this.callback = callback;
-	  this.keepSelection()
+	  this.keepSelection();
 	  document.body.appendChild(this.html.container);
 	  this.html.input.focus();
 	  this.dispatchEvent("show_minibuffer", null);
@@ -460,7 +460,7 @@ Minibuffer.prototype = {
 	  var i = this.html.input;
 	  if(newNode){
 		  i.value = (i.value.match(new RegExp('.*'+this.separator.escapeRegexp()+'\\s*')) || '') + newNode.innerHTML;
-		  newNode.setAttribute('class','gm_minibuffer_selected');
+		  newNode.setAttribute('class', 'gm_minibuffer_selected');
 	  }
 	  if(oldNode){
 		  oldNode.removeAttribute('class',0);
@@ -482,7 +482,7 @@ Minibuffer.prototype = {
 //	var obj = {
 //		'show_minibuffer': function(){alert('show')},
 //		'hide_minibuffer': function(){alert('hide')}
-//	}
+//	};
 //	minibuffer.addEventListener(obj);
 
   listeners: [],
@@ -497,9 +497,7 @@ Minibuffer.prototype = {
 		  if(event_name in listener){
 			  try{
 				  listener[event_name].apply(listener, [data]);
-			  }catch(e){
-				  log(e);
-			  }
+			  }catch(e){ log(e); }
 		  }
 	  });
   },
@@ -510,7 +508,7 @@ Minibuffer.prototype = {
 	  if(!this.last_completed_string) this.updateComplationList();
 	  var last = this.current != -1 && c.childNodes[this.current];
 	  if(++this.current >= c.childNodes.length){
-		  if(this.MAX_CANDIDATES <= this.last_completed_string.split('\n').length){
+		  if(this.MAX_CANDIDATES <= this.last_completed_string.split(/\r?\n|\r/).length){
 			  this.scrollPageNext();
 		  }
 		  this.current = 0;
@@ -522,8 +520,8 @@ Minibuffer.prototype = {
 	  if(!this.last_completed_string) this.updateComplationList();
 	  var last = this.current != -1 && c.childNodes[this.current];
 	  if(--this.current < 0) {
-		  if(this.MAX_CANDIDATES <= this.last_completed_string.split('\n').length){
-			  this.scrollPagePrev()
+		  if(this.MAX_CANDIDATES <= this.last_completed_string.split(/\r?\n|\r/).length){
+			  this.scrollPagePrev();
 		  }
 		  this.current = c.childNodes.length - 1;
 	  }
@@ -554,15 +552,15 @@ Minibuffer.prototype = {
 		  var i=self.html.input, b=i.selectionStart, e=i.selectionEnd;
 		  // "a | b | c" => "a | b | "
 		  var pstr = i.value.slice(0,b).match(new RegExp('.*'+self.separator.escapeRegexp()+'\\s*'));
-		  i.value = (pstr ? pstr[0] : '') + str
+		  i.value = (pstr ? pstr[0] : '') + str;
 		  var l=i.value.length;
 		  i.setSelectionRange(l,l);
-		  return i.value
-	  }
+		  return i.value;
+	  };
 	  var getUniqueCandidate = function(){
-		  var lst = self.last_completed_string.split('\n');
+		  var lst = self.last_completed_string.split(/\r?\n|\r/);
 		  return lst.length == 1 ? lst[0] : false;
-	  }
+	  };
 	  var str = self.getCompletedString();
 	  if(!str){
 		  this.updateComplationList();
@@ -596,7 +594,7 @@ Minibuffer.prototype = {
 	  i.setSelectionRange(l,l);
   },
   bindBackwardWord: function(){
-	  var i=this.html.input, l=i.value.slice(0,i.selectionStart).replace(/[a-zA-Z0-9]*$|[^a-zA-Z0-9]*$/,'').length;
+	  var i=this.html.input, l=i.value.slice(0,i.selectionStart).replace(/[a-zA-Z0-9]+$|[^a-zA-Z0-9]+$/,'').length;
 	  i.setSelectionRange(l,l);
   },
 // delete character
@@ -609,7 +607,7 @@ Minibuffer.prototype = {
   },
   bindDeleteBackwardWord: function(){
 	  var i=this.html.input, b=i.selectionStart, e=i.selectionEnd;
-	  var tx = i.value, tr=tx.slice(0,b-1).replace(/[^a-zA-Z0-9]*$/,'').replace(/[a-zA-Z0-9]*$/,''), l=tr.length;
+	  var tx = i.value, tr=tx.slice(0,b-1).replace(/[^a-zA-Z0-9]+$/,'').replace(/[a-zA-Z0-9]+$/,''), l=tr.length;
 	  i.value = tr+tx.slice(e);
 	  i.setSelectionRange(l,l);
 	  this.updateComplationList();
@@ -640,22 +638,21 @@ Minibuffer.prototype = {
 	  this.updateComplationList();
   },
   bindCompleteAndPipe: function(){
-	  if(this.separator!='|') return;
-	  if(this.current>=0 || this.bindComplete()){
-		  var i=this.html.input, b=i.selectionStart, str=i.value;
-		  var trim = function(str){
-			  return str.replace(/^\s|\s$/g,'');
-		  }
-		  i.value = trim(str.slice(0,b)) + ' ' + this.separator + ' ' + trim(str.slice(b));
-		  var p = i.selectionEnd + this.separator.length;
-		  i.setSelectionRange(p,p);
-		  // eliminate highlight
-		  var c = this.html.completion;
-		  var last = this.current != -1 && c.childNodes[this.current];
-		  this.selectCandidate(null, last);
+	  if(this.separator!='|' ||
+	     (this.current<0 && !this.bindComplete())) return;
+	  var i=this.html.input, b=i.selectionStart, str=i.value;
+	  var trim = function(str){
+		  return str.replace(/^\s|\s$/g,'');
+	  };
+	  i.value = trim(str.slice(0,b)) + ' ' + this.separator + ' ' + trim(str.slice(b));
+	  var p = i.selectionEnd + this.separator.length;
+	  i.setSelectionRange(p,p);
+	  // eliminate highlight
+	  var c = this.html.completion;
+	  var last = this.current != -1 && c.childNodes[this.current];
+	  this.selectCandidate(null, last);
 
-		  this.updateComplationList();
-	  }
+	  this.updateComplationList();
   },
 // history
   bindSearchHistoryBackward: function(){
@@ -663,7 +660,8 @@ Minibuffer.prototype = {
 	  var history = this.history, self = this, i = this.html.input;
 	  this.history_search_regexp = this.history_search_regexp || new RegExp('^' + i.value);
 	  var count = history.position(function(e, n){
-		  return e.match(self.history_search_regexp) && n > self.history_search_count});
+		  return e.match(self.history_search_regexp) && n > self.history_search_count;
+	  });
 	  if(typeof count != 'number') count = this.history_search_count;
 	  if(count > -1) i.value = history[count];
 	  this.history_search_count = count;
@@ -675,25 +673,32 @@ Minibuffer.prototype = {
 	  if(typeof(count) == 'number') this.html.input.value = history[this.history_search_count -= count+1];
   },
 // alias
-  bindRegisterAlias: function(){
+  bindRegisterOrUnregisterAlias: function(){
 	  if(!this.hasOwnProperty('alias')) return;
 	  var alias = this.alias;
 	  var t = this.html.input.value;
-	  var a = prompt('input alias of '+t+'');
-	  alias[a] = t;
-	  this.alias = alias;
+	  if(typeof alias[t] == 'undefined'){
+		  // register as alias
+		  var a = prompt('input alias of '+t+'');
+		  alias[a] = t;
+		  this.alias = alias;
+	  }else{
+		  // unregister from alias
+		  delete alias[t];
+		  this.alias = alias;
+	  }
   },
   bindExpandAlias: function(){
 	  var i = this.html.input;
 	  var alias = this.alias[i.value];
-	  if(alias) i.value = alias
+	  if(alias) i.value = alias;
 	  this.updateComplationList();
   }
-}
+};
 
 var Shell = {
   TT: {
-	arg:  'arg',
+	arg: 'arg',
 	control: 'control'
   },
   Parser: {
@@ -704,7 +709,7 @@ var Shell = {
 	get_token: function (  ) {
 		// surround('foo', '[]') => '[foo]'
 		// surround('foo', '/')  => '/foo/'
-		var surround =  function (s, c) {
+		var surround = function (s, c) {
 			var d = (c.length > 1 ? c[1] : c) ;
 			return c[0] + s + d;
 		};
@@ -723,7 +728,7 @@ var Shell = {
 			surround( surround(meta_chars, "[]"), "()" )
 			].join("|"), "()" );
 		var re = new RegExp(exp);
-		if ( this.buffer.match(re) ) {
+		if ( re.test(this.buffer) ) {
 			// huuum, we need to count parenthesis index from constructed expression....
 			// ^\s*(((["'])(.+?)(\3))|([^|<>;"']+)|([|<>;]))
 			//4 or 6 or 7
@@ -795,7 +800,7 @@ var Shell = {
 	  } );
 	  return stdin;
   }
-}
+};
 
 // copied from FLASH KEY (c) id:brazil
 // http://userscripts.org/scripts/show/11996
@@ -806,12 +811,12 @@ var FlashMessage = new function(){
 			position : fixed;
 			font-size : 500%;
 			z-index : 10000;
-			
+
 			padding : 50px;
 			left : 50%;
 			top : 50%;
 			margin : -1em;
-			
+
 			background-color : #444;
 			color : #FFF;
 			-moz-border-radius: 0.3em;
@@ -872,7 +877,7 @@ var FlashMessage = new function(){
 	function show(target, style){
 		target.style.display=(style || '');
 	}
-}
+};
 
 var Status = new Class();
 Status.id = 'gm_minibuffer_flash_status';
@@ -888,18 +893,18 @@ Status.prototype = {
 	  if(typeof status != "string"){
 		  if(hash[name]){
 			  this.fadeout(hash[name]);
-			  del()
+			  del();
 		  }
 	  }else{
 		  var img = $N('img',{src:"data:image/gif;base64,R0lGODlhEAAQAOMIAAAAABoaGjMzM0xMTGZmZoCAgJmZmbKysv///////////////////////////////yH/C05FVFNDQVBFMi4wAwEAAAAh+QQBCgAIACwAAAAAEAAQAAAESBDJiQCgmFqbZwjVhhwH9n3hSJbeSa1sm5GUIHSTYSC2jeu63q0D3PlwCB1lMMgUChgmk/J8LqUIAgFRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+UKgmFqbpxDV9gAA9n3hSJbeSa1sm5HUMHTTcTy2jeu63q0D3PlwDx2FQMgYDBgmk/J8LqWPQuFRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+YSgmFqb5xjV9gQB9n3hSJbeSa1sm5EUQXQTADy2jeu63q0D3PlwDx2lUMgcDhgmk/J8LqUPg+FRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+cagmFqbJyHV9ggC9n3hSJbeSa1sm5FUUXRTEDy2jeu63q0D3PlwDx3FYMgAABgmk/J8LqWPw+FRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+QihmFqbZynV9gwD9n3hSJbeSa1sm5GUYXSTIDy2jeu63q0D3PlwDx3lcMgEAhgmk/J8LqUPAOBRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+UqhmFqbpzHV9hAE9n3hSJbeSa1sm5HUcXTTMDy2jeu63q0D3PlwDx0FAMgIBBgmk/J8LqWPQOBRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+YyhmFqb5znV9hQF9n3hSJbeSa1sm5EUAHQTQTy2jeu63q0D3PlwDx0lEMgMBhgmk/J8LqUPgeBRhV6z2q0VF94iJ9pOBAAh+QQBCgAPACwAAAAAEAAQAAAESPDJ+c6hmFqbJwDV9hgG9n3hSJbeSa1sm5FUEHRTUTy2jeu63q0D3PlwDx1FIMgQCBgmk/J8LqWPweBRhV6z2q0VF94iJ9pOBAA7"});
 		  var lst = typeof time_limit == 'number' ? [status]: [img ,status];
 		  var div = $N('div', {}, lst);
 		  if(hash[name]){
-			  this.replace(div, hash[name])
+			  this.replace(div, hash[name]);
 		  }else{
 			  this.add(div);
 		  }
-		  hash[name] = div
+		  hash[name] = div;
 		  if(typeof time_limit == 'number'){
 			  this.fadeout.later(time_limit).call(this, hash[name]);
 			  del.later(time_limit)();
@@ -933,7 +938,7 @@ Status.prototype = {
   add: function(node){
 	  var container = document.getElementById(Status.id);
 	  if(container){
-		  container.appendChild(node)
+		  container.appendChild(node);
 	  }
 	  if(container.style.display == 'none'){
 		  container.style.display = 'block';
@@ -961,7 +966,7 @@ Status.prototype = {
 	  var container = document.getElementById(Status.id);
 	  container.replaceChild(new_node, old_node);
   }
-}
+};
 
 var Command = new Class();
 Command.prototype = {
@@ -988,7 +993,7 @@ Command.prototype = {
   addCommand: function(hash){
 	  // to keep compatibility
 	  if(typeof hash.name == 'undefined'){
-		  for(name in hash){
+		  for(var name in hash){
 			  this.command[name] = hash[name];
 		  }
 		  return;
@@ -1047,7 +1052,7 @@ Command.prototype = {
 			func: fn,
 			args: command.args,
 			name: command.name
-		  }
+		  };
 		  stdin = cmd.func(stdin);
 	  });
 	  return stdin;
@@ -1059,28 +1064,27 @@ Command.prototype = {
   },
   setup: function(){
 	  // setup minibuffer
-	  var define_setter = function(type){return function(arg){ GM_setValue(type, uneval(arg))}}
-	  this.alias_getter = function(){var res=GM_getValue('alias');return typeof(res)!='undefined'?eval(res):{};}
+	  var define_setter = function(type){return function(arg){ GM_setValue(type, uneval(arg))}};
+	  this.alias_getter = function(){return eval(GM_getValue('alias', '({})'))};
 	  this.minibuffer = new Minibuffer()
-		  .setHistoryGetter(function(){var res=GM_getValue('history');return typeof(res)!='undefined'?eval(res):[];})
+		  .setHistoryGetter(function(){return eval(GM_getValue('history', '[]'))})
 		  .setAliasGetter(this.alias_getter)
 		  .setHistorySetter(define_setter('history'))
 		  .setAliasSetter(define_setter('alias'));
 	  // setup shortcut key
 	  this.shortcutkey = new ShortcutKey()
-								.initHelp('command')
-								.throughInputElements();
+		  .initHelp('command')
+		  .throughInputElements();
 	  this.shortcutkey.addEventListener(document, 'keypress', false);
 	  this.attachEvent();
 	  this.hoge();
   },
-}
+};
 
 function $N(name, attr, childs) {
 	var ret = document.createElement(name);
-	for (k in attr) {
-		if (!attr.hasOwnProperty(k)) continue;
-		v = attr[k];
+	for (var k in attr) if (attr.hasOwnProperty(k)) {
+		var v = attr[k];
 		if (k == "class") ret.className = v;
 		else ret.setAttribute(k, v);
 	}
@@ -1103,7 +1107,7 @@ function $N(name, attr, childs) {
 
 // $X
 // based on: http://lowreal.net/blog/2007/11/17/1
-// 
+//
 // $X(exp);
 // $X(exp, context);
 // $X(exp, type);
@@ -1121,12 +1125,13 @@ function $X (exp, context) {
 		namespace = context['namespace'] || context['ns'];
 		context = context['context'];
 	}
-	
+
 	if (!context) context = document;
 	var exp = (context.ownerDocument || context).createExpression(exp, function (prefix) {
-		return namespace[prefix] || document.createNSResolver((context.ownerDocument == null ? context
-		                                                                : context.ownerDocument).documentElement)
-		               .lookupNamespaceURI(prefix) || document.documentElement.namespaceURI;
+		return namespace[prefix] ||
+		       document.createNSResolver((context.ownerDocument == null ? context : context.ownerDocument)
+		               .documentElement).lookupNamespaceURI(prefix) ||
+		       document.documentElement.namespaceURI;
 	});
 
 	switch (type) {
@@ -1336,10 +1341,9 @@ Deferred.register("wait", Deferred.wait);
 Deferred.define = function (obj, list) {
 	if (!list) list = ["parallel", "wait", "next", "call", "loop"];
 	if (!obj)  obj  = (function () { return this })();
-	for (var i = 0; i < list.length; i++) {
-		var n = list[i];
-		obj[n] = Deferred[n];
-	}
+	list.forEach(function (i) {
+		obj[i] = Deferred[i];
+	});
 	return Deferred;
 };
 
@@ -1358,8 +1362,8 @@ function xhttp (opts) {
 	GM_xmlhttpRequest(opts);
 	return d;
 }
-xhttp.get  = function (url)       { return xhttp({method:"get",  url:url}) }
-xhttp.post = function (url, data) { return xhttp({method:"post", url:url, data:data, headers:{"Content-Type":"application/x-www-form-urlencoded"}}) }
+xhttp.get  = function (url)       { return xhttp({method:"get",  url:url}) };
+xhttp.post = function (url, data) { return xhttp({method:"post", url:url, data:data, headers:{"Content-Type":"application/x-www-form-urlencoded"}}) };
 
 
 function http (opts) {
@@ -1378,8 +1382,8 @@ function http (opts) {
 	d.xhr = req;
 	return d;
 }
-http.get  = function (url)       { return http({method:"get",  url:url}) }
-http.post = function (url, data) { return http({method:"post", url:url, data:data, headers:{"Content-Type":"application/x-www-form-urlencoded"}}) }
+http.get  = function (url)       { return http({method:"get",  url:url}) };
+http.post = function (url, data) { return http({method:"post", url:url, data:data, headers:{"Content-Type":"application/x-www-form-urlencoded"}}) };
 
 Deferred.Deferred = Deferred;
 Deferred.http     = http;
@@ -1399,7 +1403,7 @@ function values(hash){
 }
 var getSelectionText = function(){
 	return String(window.getSelection()).split(/\r?\n|\r/).remove("");
-}
+};
 var getSelectionNode = function(){
 	var s=window.getSelection(), res=[], len=s.rangeCount;
 	for(var i=0; i<len; i++){
@@ -1408,32 +1412,32 @@ var getSelectionNode = function(){
 		res[res.length] = ret;
 	}
 	return res;
-}
+};
 
 String.prototype.escapeRegexp = function(){
-	return this.replace(/^\?/, '.?').replace(/^\*/, '.*').replace(/\|/,'\\|').replace(/\([^)]*$/, '').replace(/\[[^\]]*$/, '');
-}
+	return this.replace(/^(?=[?*])/, '.').replace(/(?=[|+])/g, '\\').replace(/\([^)]*$/, '').replace(/\[[^\]]*$/, '');
+};
 Array.prototype.position = function(obj){
 	var test = (typeof(obj) == 'function') ? obj : function(a){return a == obj};
 	for(var i=0;i<this.length; i++) if(test(this[i], i)) return i;
 	return false;
-}
+};
 Array.prototype.last = function(){
 	return this[this.length-1];
-}
+};
 Array.prototype.find = function(obj){
 	var i = this.position(obj);
 	return typeof(i) == 'number' ? this[i] : false;
-}
+};
 Array.prototype.remove = function(obj){
 	var test = (typeof(obj) == 'function') ? obj : function(a){return a == obj};
 	return this.filter(function(e){return !test(e)})
-}
+};
 Array.prototype.reduce = function(fn ,initial){
 	var len = this.length;
 	if(typeof fn != "function" || (len == 0 && arguments.length == 1)) throw new TypeError();
 	var i = 0;
-	if(arguments.length >= 2){
+	if(arguments.length >= arguments.callee.length){
 		var rv = arguments[1];
 	}else{
 		do{
@@ -1441,12 +1445,12 @@ Array.prototype.reduce = function(fn ,initial){
 				rv = this[i++];
 				break;
 			}
-			if (++i >= len)throw new TypeError();
+			if(++i >= len)throw new TypeError();
 		}while (true);
 	}
 	for (;i<len;i++) if(i in this) rv=fn.call(null, rv, this[i], i, this);
 	return rv;
-}
+};
 Function.prototype.later = function(ms){
 	var self = this;
 	return function(){
@@ -1465,7 +1469,7 @@ Function.prototype.later = function(ms){
 		var PID = setTimeout(later_func,ms);
 		return res;
 	};
-}
+};
 // usage:
 //   var lst = (function(e){console.log(e)}).eachLater(500)([1],[2],[3],[4],[5],[6],[7]);
 //   (function(){lst.forEach(function(e){e.complete || e.cancel()})}).later(2000)();
@@ -1476,7 +1480,7 @@ Function.prototype.eachLater = function(ms){
 		for(var i=0;i<arguments.length; i++) lst[lst.length] = self.later(tmp+=ms).apply(this,arguments[i]);
 		return lst;
 	}
-}
+};
 
 function log(){console.log.apply(console, Array.slice(arguments));}
 
@@ -1559,7 +1563,7 @@ if(document.body){
 				for(var i=0; i<count; i++){
 					var newurl = url.replace(rep, '');
 					if(newurl.match(host)) url = newurl;
-				  }
+				}
 				return url;
 			});
 		}

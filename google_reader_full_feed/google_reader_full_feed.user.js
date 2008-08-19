@@ -5,7 +5,7 @@
 // @include     https://www.google.tld/reader/*
 // @description loading full entry on Google Reader
 // @privilege   false
-// @version     0.1.7
+// @version     0.1.8
 // ==/UserScript==
 // based on: LDR Full Feed <http://d.hatena.ne.jp/toshi123>
 // thanks:
@@ -316,8 +316,8 @@ FullFeed.registerSbmIcons = function() {
   var c = new getCurrentItem();
   icon = document.createElement('span');
   icon.innerHTML = ''
-    + '&nbsp;<img src="http://b.hatena.ne.jp/entry/image/' + c.item.link + '"/>'
-    + '&nbsp;<img src="http://image.clip.livedoor.com/counter/' + c.item.link + '"/>'
+    + '&nbsp;<img src="http://b.hatena.ne.jp/entry/image/' + c.item.link + '" title="\u306f\u3066\u306a\u30d6\u30c3\u30af\u30de\u30fc\u30af"/>'
+    + '&nbsp;<img src="http://image.clip.livedoor.com/counter/' + c.item.link + '" title="livedoor \u30af\u30ea\u30c3\u30d7"/>'
   container.appendChild(icon);
 };
 
@@ -490,9 +490,9 @@ var timer = setTimeout(function() {
   if (timer) clearTimeout(timer);
   try {
     var currentItem = w.get_active_item(true);
-    if ((!lastItem || lastItem.link != currentItem.link) && !getFirstElementByXPath('id("current-entry")//span[contains(concat(" ", @class, " "), " gm_fullfeed_checked ")]') ) {
+    if (!lastItem || lastItem.link != currentItem.link) {
       lastItem = currentItem;
-      FullFeed.preFilters.forEach(function(filter) {
+      if (currentItem.link) FullFeed.preFilters.forEach(function(filter) {
         filter(currentItem);
       });
     }

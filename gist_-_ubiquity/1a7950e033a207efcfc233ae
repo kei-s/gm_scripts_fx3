@@ -1,0 +1,23 @@
+// simple version of $X
+// $X(exp);
+// $X(exp, context);
+function $X (exp, context) {
+	context || (context = document);
+	var expr = (context.ownerDocument || context).createExpression(exp, function (prefix) {
+		return document.createNSResolver(context)(prefix) ||
+			(document.contentType == "application/xhtml+xml") ? "http://www.w3.org/1999/xhtml" : "";
+	});
+
+	var result = expr.evaluate(context, XPathResult.ANY_TYPE, null);
+		switch (result.resultType) {
+			case XPathResult.STRING_TYPE : return result.stringValue;
+			case XPathResult.NUMBER_TYPE : return result.numberValue;
+			case XPathResult.BOOLEAN_TYPE: return result.booleanValue;
+			case XPathResult.UNORDERED_NODE_ITERATOR_TYPE:
+				// not ensure the order.
+				var ret = [], i = null;
+				while (i = result.iterateNext()) ret.push(i);
+				return ret;
+		}
+	return null;
+}

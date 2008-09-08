@@ -6,42 +6,15 @@
 // ==/UserScript==
 
 /*
-
 Last Modified: 2007.11.01
 
-Copyright (C) 2006-2007 shiro
+by snj14
 
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions
-are met:
-
-1. Redistributions of source code must retain the above copyright
-   notice, this list of conditions and the following disclaimer.
-
-2. Redistributions in binary form must reproduce the above copyright
-   notice, this list of conditions and the following disclaimer in
-   the documentation and/or other materials provided with the
-   distribution.
-
-3. The name of the author may not be used to endorse or promote
-   products derived from this software without specific prior
-   written permission.
-
-THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
-PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
-DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
-STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
-POSSIBILITY OF SUCH DAMAGE.
+Cc-by http://creativecommons.org/licenses/by/2.1/jp/
 */
 
 var SBMCommentsViewer = function() {
-
+    
     // --------------------------------------------------------------
     // Shortcut key
     // --------------------------------------------------------------
@@ -49,12 +22,12 @@ var SBMCommentsViewer = function() {
     // S -- shift
     // A -- alt
     var BIND_KEY = 'A-c';
-
+    
     // --------------------------------------------------------------
     // max count (each sbm)
     // --------------------------------------------------------------
     var MAX_GET_COUNT = 100;
-
+    
     // --------------------------------------------------------------
     // ignore user
     // --------------------------------------------------------------
@@ -68,8 +41,8 @@ var SBMCommentsViewer = function() {
     // mouse
     // --------------------------------------------------------------
     // mouseover,click,dblclick etc
-    var mouse_event_show = 'mouseover';
-
+    var mouse_event_show = 'click';
+    
     // --------------------------------------------------------------
     // JSONP
     // --------------------------------------------------------------
@@ -146,7 +119,7 @@ var SBMCommentsViewer = function() {
         back_css,
         font_css
         ].join('');
-
+    
     // for stress text of option
     var option_text_css = "font-weight:bold; text-decoration:underline;";
 
@@ -206,7 +179,7 @@ var SBMCommentsViewer = function() {
         this.comments = [];
         this.comments_no_dup = false;
         var counts = [];
-
+        
         CommentArea.prototype.setup = function () {
             if(this.id) return;
             this.id = 'SBMCommentsViewerArea';
@@ -249,7 +222,7 @@ var SBMCommentsViewer = function() {
             this.mini.addEventListener(mouse_event_show, function(){comment_area.show()}, false);
             document.body.appendChild(this.mini);
         }
-
+        
         CommentArea.prototype.show = function (reset) {
             this.setup();
             loadSBM();
@@ -715,7 +688,7 @@ var SBMCommentsViewer = function() {
 
     // --------------------------------------------------------------
     // Comment
-    //
+    // 
     // user    | string | user name
     // image   | string | url of icon
     // href    | string | url

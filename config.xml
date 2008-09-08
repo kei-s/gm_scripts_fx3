@@ -13,16 +13,9 @@
 	<Script filename="focus_field.user.js" name="Focus Field" namespace="http://libelabo.jp/" description="Focus on Field in turn" enabled="true" basedir="focus_field">
 		<Include>*</Include>
 	</Script>
-	<Script filename="sbm_comments_viewer.user.js" name="SBM Comments Viewer" namespace="http://white.s151.xrea.com/wiki/index.php?script/SBMCommentsViewer" description="Show social bookmark's comments at the bottom of your browser." enabled="true" basedir="sbm_comments_viewer">
-		<Include>*</Include>
-	</Script>
 	<Script filename="favicon_with_google_read.user.js" name="Favicon with Google Reader" namespace="http://libelabo.jp/" description="A script to add favicons next to links on Google Reader" enabled="true" basedir="favicon_with_google_read">
 		<Include>http://www.google.com/reader/view/*</Include>
 		<Include>https://www.google.com/reader/view/*</Include>
-	</Script>
-	<Script filename="favicon_with_google_3.user.js" name="Favicon with Google 3" namespace="http://white.s151.xrea.com/" description="A script to add favicons next to links on Google search results" enabled="true" basedir="favicon_with_google_3">
-		<Include>http://*google.*/*q=*</Include>
-		<Exclude>http://mail.google.com/*</Exclude>
 	</Script>
 	<Script filename="sbm_count_with_google.user.js" name="SBM Count With Google" namespace="http://white.s151.xrea.com/" description="show SBM count in Google search result" enabled="true" basedir="sbm_count_with_google">
 		<Include>http://www.google.*/*q=*</Include>
@@ -46,11 +39,26 @@
 		<Include>http://*.2ch.net/*</Include>
 		<Include>http://*.bbspink.com/*</Include>
 	</Script>
-	<Script filename="googlereaderfullfeed.user.js" name="googlereaderfullfeed" namespace="coderepos.org" description="" enabled="true" basedir="googlereaderfullfeed">
-		<Include>*</Include>
-	</Script>
 	<Script filename="google_reader_full_feed.user.js" name="Google Reader Full Feed" namespace="tag:mattn.jp@gmail.com,2008-02-25:/coderepos.org" description="loading full entry on Google Reader" enabled="true" basedir="google_reader_full_feed">
 		<Include>http://www.google.tld/reader/*</Include>
 		<Include>https://www.google.tld/reader/*</Include>
+	</Script>
+	<Script filename="favicon_with_google_3.user.js" name="Favicon with Google 3" namespace="http://white.s151.xrea.com/" description="A script to add favicons next to links on Google search results" enabled="true" basedir="favicon_with_google_3">
+		<Include>http://*google.*/*q=*</Include>
+		<Exclude>http://mail.google.com/*</Exclude>
+	</Script>
+	<Script filename="sbm_comments_viewer.user.js" name="SBM Comments Viewer" namespace="http://white.s151.xrea.com/wiki/index.php?script/SBMCommentsViewer" description="Show social bookmark's comments at the bottom of your browser." enabled="true" basedir="sbm_comments_viewer">
+		<Include>*</Include>
+	</Script>
+	<Script filename="gist_-_ubiquity.user.js" name="gist - ubiquity" namespace="http://d.hatena.ne.jp/youpy/" description="" enabled="true" basedir="gist_-_ubiquity">
+		<Include>http://gist.github.com/*</Include>
+		<Require filename="1a7950e033a207efcfc233ae"/>
+	</Script>
+	<Script filename="hb_secret_comment_viewer.user.js" name="Hb secret comment viewer" namespace="http://d.hatena.ne.jp/Lhankor_Mhy/" description="" enabled="true" basedir="hb_secret_comment_viewer">
+		<Include>http://b.hatena.ne.jp/entry/*</Include>
+	</Script>
+	<Script filename="grb.user.js" name="GR+?B" namespace="http://d.hatena.ne.jp/nozom/" description="show ?B button and count in Google Reader" enabled="true" basedir="grb">
+		<Include>http://www.google.com/reader/view/*</Include>
+		<Include>https://www.google.com/reader/view/*</Include>
 	</Script>
 </UserScriptConfig>

@@ -296,7 +296,7 @@ FullFeed.registerWidgets = function() {
   var c = new getCurrentItem();
   var item = c.item;
   var feed = c.feed;
-  if (item.link.match(pattern) || feed.channel.link.match(pattern)) {
+  if ((item.link.match(pattern) || feed.channel.link.match(pattern)) && !getFirstElementByXPath('id("current-entry")//span[contains(concat(" ", @class, " "), " gm_fullfeed_checked ")]')) {
     icon = document.createElement('span');
     icon.title = description;
     icon.innerHTML = '<img src="'+ICON+'" style="cursor: pointer;">';
@@ -335,7 +335,7 @@ FullFeed.documentFilters = [
 
 FullFeed.preFilters = [
   FullFeed.registerWidgets,
-  FullFeed.registerSbmIcons,
+//  FullFeed.registerSbmIcons,
 ];
 
 FullFeed.filters = [];

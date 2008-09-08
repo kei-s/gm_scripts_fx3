@@ -20,7 +20,7 @@
 
 	// adds the link favicon before itself
 	function add_favicon(link) {
-		if(link.parentNode.nodeName.toLowerCase() != 'h2') return;
+		if(link.parentNode.nodeName.toLowerCase() != 'h3') return;
 		var g = link.parentNode;
 
 		var container = document.createElement('div');
